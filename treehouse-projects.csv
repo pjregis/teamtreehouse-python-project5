@@ -1,0 +1,5 @@
+title,date,description,skills_practiced,github_url
+The Number Guessing Game,6/1/2022,"A console number guessing game that prompts a player to choose a number between a specified range of numbers.",Python,https://github.com/pjregis/teamtreehouse-python-project1
+Basketball Stats Tool,6/8/2022,"A console-based basketball team statistics tool to help you divide up a group of players into teams.",Python,https://github.com/pjregis/teamtreehouse-python-project2
+Phrase Hunters,6/15/2022,"A word guessing game. A player tries to guess the phrase by inputting individual characters. Can they guess the phrase before they run out of attempts?",Python,https://github.com/pjregis/teamtreehouse-python-project3
+Store Inventory with SQLAlchemy,6/22/2022,"A console application that loads an existing store's inventory data from a CSV file into a SQLite database. The application will allow a user to interact with the records stored in the database to view existing records, add new items, and backup/export the existing state of the database into a CSV file.",Python,https://github.com/pjregis/teamtreehouse-python-project4
