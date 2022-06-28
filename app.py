@@ -29,35 +29,35 @@ def add_project():
     return render_template('addproject.html', projects=projects)
 
 
-@app.route('/project/<id>')
-def project(id):
+@app.route('/project/<project_id>')
+def project(project_id):
     projects = Project.query.all()
-    project = Project.query.get_or_404(id)
-    skills = project.skills_practiced.split(',')
-    date = display_date(project.date)
-    return render_template('detail.html', project=project, projects=projects, skills=skills, date=date)
+    project_in_db = Project.query.get_or_404(project_id)
+    skills = project_in_db.skills_practiced.split(',')
+    date = display_date(project_in_db.date)
+    return render_template('detail.html', project=project_in_db, projects=projects, skills=skills, date=date)
 
 
-@app.route('/project/<id>/edit', methods=['GET', 'POST'])
-def edit_project(id):
+@app.route('/project/<project_id>/edit', methods=['GET', 'POST'])
+def edit_project(project_id):
     projects = Project.query.all()
-    project = Project.query.get_or_404(id)
-    date = convert_date_to_picker(project.date)
+    project_in_db = Project.query.get_or_404(project_id)
+    date = convert_date_to_picker(project_in_db.date)
     if request.form:
-        project.title = request.form['title']
-        project.date = convert_picker_to_date(request.form['date'])
-        project.description = request.form['desc']
-        project.skills_practiced = request.form['skills']
-        project.github_url = request.form['github']
+        project_in_db.title = request.form['title']
+        project_in_db.date = convert_picker_to_date(request.form['date'])
+        project_in_db.description = request.form['desc']
+        project_in_db.skills_practiced = request.form['skills']
+        project_in_db.github_url = request.form['github']
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('editproject.html', project=project, projects=projects, date=date)
+    return render_template('editproject.html', project=project_in_db, projects=projects, date=date)
 
 
-@app.route('/project/<id>/delete')
-def delete_project(id):
-    project = Project.query.get_or_404(id)
-    db.session.delete(project)
+@app.route('/project/<project_id>/delete')
+def delete_project(project_id):
+    project_in_db = Project.query.get_or_404(project_id)
+    db.session.delete(project_in_db)
     db.session.commit()
     return redirect(url_for('index'))
 
@@ -70,7 +70,8 @@ def about():
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html', msg=error), 404
+    projects = Project.query.all()
+    return render_template('404.html', msg=error, projects=projects), 404
 
 
 def convert_picker_to_date(date_str):
